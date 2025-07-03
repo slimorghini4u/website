@@ -2,60 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Slimorghini</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>10SONGS4U</title>
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+Great+Primer+SC&display=swap" rel="stylesheet">
   <style>
-    @font-face {
-    font-family: 'TypographerFraktur-Medium';
-    src: url('fonts/TypographerFraktur-Medium.ttf') format('truetype');
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
     }
     @font-face {
-    font-family: 'TonightStoryDemoRegular';
-    src: url('fonts/TonightStoryDemoRegular.ttf') format('truetype');
-    }
-    @font-face {
-    font-family: 'CFPunkForever';
-    src: url('fonts/CFPunkForever.ttf') format('truetype');
-    }
-    @font-face {
-    font-family: 'Moderniz';
-    src: url('fonts/Moderniz.otf') format('truetype');
-    }
-    @font-face {
-    font-family: 'Darkbrutal-Regular';
-    src: url('fonts/Darkbrutal-Regular.ttf') format('truetype');
-    }
-    @font-face {
-    font-family: 'Darksad-Regular';
-    src: url('fonts/Darksad-Regular.ttf') format('truetype');
-    }
-    @font-face {
-    font-family: 'OverDark';
-    src: url('fonts/OverDark.ttf') format('truetype');
-    }
-    @font-face {
-    font-family: 'Darkson-Regular';
-    src: url('fonts/Darkson-Regular.ttf') format('truetype');
-    }
-    @font-face {
-    font-family: 'Darker';
-    src: url('fonts/Darker.ttf') format('truetype');
-    }
-    @font-face {
-    font-family: 'DarkerHollow';
-    src: url('fonts/DarkerHollow.ttf') format('truetype');
-    }
-    @font-face {
-    font-family: 'Dharma Punk';
-    src: url('fonts/Dharma Punk.ttf') format('truetype');
-    }
-    @font-face {
-    font-family: 'Roomach-Regular';
-    src: url('fonts/Roomach-Regular.ttf') format('truetype');
-    }
-    @font-face {
-    font-family: 'Deutschlander-O5we';
-    src: url('fonts/Deutschlander-O5we.ttf') format('truetype');
+    font-family: 'Gothic Punk';
+    src: url('fonts/Gothic Punk.ttf') format('truetype');
     }
     @font-face {
     font-family: 'DarkRebornRegular-lxJo5';
@@ -65,147 +23,166 @@
     font-family: 'DarkAngelsRegular-axV5a';
     src: url('fonts/DarkAngelsRegular-axV5a.ttf') format('truetype');
     }
-    @font-face {
-    font-family: 'Monsterdemo-p7YOK';
-    src: url('fonts/Monsterdemo-p7YOK.ttf') format('truetype');
-    }
-    @font-face {
-    font-family: 'BebasNeueBold-7B9LE';
-    src: url('fonts/BebasNeueBold-7B9LE.ttf') format('truetype');
-    }
     body {
-      font-family: TypographerFraktur-Medium, sans-serif;
-      background: #0e0e0e;
-      color: #f4f4f4;
-      margin: 0;
-      padding: 0;
+      transition: background 0.5s linear;
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      font-family: 'Gothic Punk', 'Metal Mania', cursive, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      min-height: 100vh;
     }
-    
-    header {
-      background: #1a1a1a;
-      padding: 20px;
-      text-align: center;
-    }
-    #music {
-      text-align: center;
-      font-family: 'TypographerFraktur-Medium', Arial, sans-serif;
-    }
-    #videos {
-      text-align: center;
-      font-family: 'TypographerFraktur-Medium', Arial, sans-serif;
+    .gradient-overlay {
+      position: fixed;
+      left: 0; top: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      transition: none;
     }
 
-    nav a {
-      margin: 0 15px;
-      color: #f4f4f4;
-      text-decoration: none;
-      font-family: 'BebasNeueBold-7B9LE', Arial, sans-serif; /* Add this line */
-      font-size: 1.2em; /* Optional: Increase size if you want it to stand out more */
-      letter-spacing: 1px; /* Optional: Stylish spacing */
+    .login-box {
+      position: relative;
+      z-index: 1;
+      background-color: #111;
+      padding: 50px;
+      border-radius: 10px;
+      box-shadow: 0 0 40px #1d0606; 
+      text-align: center;
+      width: 300px;
     }
 
-    section {
-      padding: 40px;
-      max-width: 800px;
-      margin: auto;
-    }
-    h1, h2 {
+    h2 {
       color: #ff0033;
+      margin-bottom: 30px;
+      font-size: 36px;
+      letter-spacing: 1px;
+      font-family: 'Gothic Punk', 'Metal Mania', cursive, sans-serif;
     }
-    .music-links a {
-    display: block;
-    margin: 15px auto;
-    background: #ff0033;
-    color: #0e0e0e;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-size: 1.3em;
-    font-family: 'BebasNeueBold-7B9LE', Arial, sans-serif;
-    width: 250px;
-    text-align: center;
-    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-  }
-
-  /* Hover effect with glow */
-  .music-links a:hover {
-    background: #cc0029; /* Slightly darker red on hover */
-    color: #ffffff;
-    transform: scale(1.05);
-    text-shadow: 0 0 5px #ffffff;
-
-    box-shadow: 0 0 15px #ff0033, 0 0 30px #ff0033, 0 0 35px #ff0033; /* Red glow effect */
-  }
-
-
-
-    footer {
-      background: #1a1a1a;
-      text-align: center;
-      padding: 20px;
-      font-size: 0.9em;
-      font-family: Arial, sans-serif;
+    input[type="text"], input[type="password"] {
+      width: 92%;
+      padding: 12px;
+      margin: 10px 0;
+      background-color: #1c1c1c;
+      color: #fff;
+      border: 1px solid #444;
+      border-radius: 5px;
+      font-family: 'IM Fell Great Primer SC', monospace;
     }
-h2 {
-  font-size: 1.9em; /* Increase or decrease this value as desired */
-}
-
-#merch h2,
-#contact h2 {
-  font-family: 'Moderniz', Arial, sans-serif;
-  text-align: center;
-  font-size: 1.9em; /* Ensure size increase applies here too */
-}
-
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #ff0033;
+      color: black;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      font-family: 'IM Fell Great Primer SC', cursive;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover {
+      background-color: #aa0011;
+    }
   </style>
 </head>
 <body>
+  <div class="gradient-overlay"></div>
+  
+  <div class="login-box">
+    <h2>WHat IS thE paSSWOrd?</h2>
+    <input type="text" id="username" placeholder="Username" />
+    <input type="password" id="password" placeholder="Password" />
+    <button onclick="login()">Enter</button>
+  </div>
+  
+  <script>
 
-  <header>
-    <h1>Slimorghini</h1>
-    <nav>
-      <a href="#music">Music</a>
-      <a href="#videos">Videos</a>
-      <a href="#merch">Merch</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
+    // Colors for the animation
+    const RED = '220,0,0';
+    const BLACK = '0,0,0';
 
-  <section id="music">
-    <h2>Music</h2>
-    <div class="music-links">
-      <a href="https://open.spotify.com/artist/2Flbp8xcSbB08jXuGIbIHQ?si=LYdI_44fRxGwtqfnPE6a3w" target="_blank">Spotify</a>
-      <a href="https://www.youtube.com/@Slimorghini" target="_blank">YouTube</a>
-      <a href="https://soundcloud.com/your-link" target="_blank">Soundcloud</a>
-    </div>
-  </section>
+    // State
+    let currentBg = RED;      
+    let overlayColor = BLACK; 
+    let radius;
+    let maxRadius;
+    let phase = 1; 
 
-  <section id="videos">
-    <h2>Latest Video</h2>
-    <iframe width="100%" height="400" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allowfullscreen></iframe>
-  </section>
+    const overlay = document.querySelector('.gradient-overlay');
+    const speed = 20; // Maintain slow speed
 
-  <section id="merch">
-    <h2>Merch</h2>
-    <p style="font-size: 30px; text-align: center; font-family: 'CFPunkForever', Arial, sans-serif;">
-  Coming soon. Hoodies, shirts and NFTs OTW.
-    </p>
+    function getMaxRadius() {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      return Math.ceil(Math.sqrt(w * w + h * h)) * 8; // Even larger for a bigger halo
+    }
 
-  </section>
+    function setBackground(color) {
+      document.body.style.backgroundColor = `rgb(${color})`;
+    }
 
-  <section id="contact">
-    <h2>Contact Me</h2>
-    <p style="font-size: 20px; text-align: center; font-family: 'BebasNeueBold-7B9LE', Arial, sans-serif;">
-      Email: <a href="mailto:slimorghini@gmail.com">slimorghini@gmail.com</a>
-    </p>
-    <p style="font-size: 20px; text-align: center; font-family: 'BebasNeueBold-7B9LE', Arial, sans-serif;">
-      Follow me on Instagram: <a href="https://instagram.com/slimorghini" target="_blank">@slimorghini</a>
-    </p>
-  </section>
+    // Much wider, softer halo with many stops
+    function setOverlayGradient(color, radius) {
+      overlay.style.background = `
+        radial-gradient(circle ${radius}px at 50% 50%, 
+          rgba(${color},1) 0%,
+          rgba(${color},0.8) 30%,
+          rgba(${color},0.5) 55%,
+          rgba(${color},0.25) 75%,
+          rgba(${color},0.12) 90%,
+          rgba(${color},0.06) 97%,
+          rgba(${color},0) 100%)
+      `;
+    }
 
-  <footer>
-    &copy; 2025 Slimorghini. All rights reserved.
-  </footer>
+    function animate() {
+      radius -= speed;
+      if (radius <= 0) {
+        radius = 0;
+        setOverlayGradient(overlayColor, radius);
+        setTimeout(() => {
+          phase = phase === 1 ? 2 : 1;
+          currentBg = phase === 1 ? RED : BLACK;
+          overlayColor = phase === 1 ? BLACK : RED;
+          setBackground(currentBg);
+          maxRadius = getMaxRadius();
+          radius = maxRadius;
+          requestAnimationFrame(animate);
+        }, 200);
+        return;
+      }
+      setBackground(currentBg);
+      setOverlayGradient(overlayColor, radius);
+      requestAnimationFrame(animate);
+    }
 
+    function startWipe() {
+      maxRadius = getMaxRadius();
+      radius = maxRadius;
+      setBackground(currentBg);
+      setOverlayGradient(overlayColor, radius);
+      requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('resize', () => {
+      maxRadius = getMaxRadius();
+    });
+
+    startWipe();
+
+    function login() {
+      const user = document.getElementById('username').value;
+      const pass = document.getElementById('password').value;
+      if (user === '10songs4u' && pass === 'beecroft') {
+        window.location.href = "home.html";
+      } else {
+        alert("WRONG. TRY AGAIN.");
+      }
+    }
+  </script>
 </body>
 </html>
