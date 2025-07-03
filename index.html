@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>10SONGS4U</title>
   <link href="https://fonts.googleapis.com/css2?family=IM+Fell+Great+Primer+SC&display=swap" rel="stylesheet">
   <style>
-    html, body {
+    html,
+    body {
       height: 100%;
       margin: 0;
       padding: 0;
     }
+
     @font-face {
-    font-family: 'Gothic Punk';
-    src: url('fonts/Gothic Punk.ttf') format('truetype');
+      font-family: 'Gothic Punk';
+      src: url('fonts/Gothic Punk.ttf') format('truetype');
     }
     @font-face {
-    font-family: 'DarkRebornRegular-lxJo5';
-    src: url('fonts/DarkRebornRegular-lxJo5.ttf') format('truetype');
+    font-family: 'BebasNeueBold-7B9LE';
+    src: url('fonts/BebasNeueBold-7B9LE.ttf') format('truetype');
     }
-    @font-face {
-    font-family: 'DarkAngelsRegular-axV5a';
-    src: url('fonts/DarkAngelsRegular-axV5a.ttf') format('truetype');
-    }
+
     body {
       transition: background 0.5s linear;
       position: relative;
@@ -35,9 +35,13 @@
       height: 100vh;
       min-height: 100vh;
     }
+
     .gradient-overlay {
       position: fixed;
-      left: 0; top: 0; width: 100vw; height: 100vh;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
       pointer-events: none;
       z-index: 0;
       transition: none;
@@ -49,7 +53,7 @@
       background-color: #111;
       padding: 50px;
       border-radius: 10px;
-      box-shadow: 0 0 40px #1d0606; 
+      box-shadow: 0 0 40px #1d0606;
       text-align: center;
       width: 300px;
     }
@@ -61,7 +65,9 @@
       letter-spacing: 1px;
       font-family: 'Gothic Punk', 'Metal Mania', cursive, sans-serif;
     }
-    input[type="text"], input[type="password"] {
+
+    input[type="text"],
+    input[type="password"] {
       width: 92%;
       padding: 12px;
       margin: 10px 0;
@@ -71,6 +77,7 @@
       border-radius: 5px;
       font-family: 'IM Fell Great Primer SC', monospace;
     }
+
     button {
       width: 100%;
       padding: 12px;
@@ -84,51 +91,114 @@
       cursor: pointer;
       margin-top: 10px;
     }
+
     button:hover {
+      background-color: #aa0011;
+    }
+
+    /* Popup styles */
+    #successPopup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .popup-content {
+      background: #111;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 30px #ff0033;
+    }
+
+    .popup-content h3 {
+      color: #ff0033;
+      margin-bottom: 15px;
+      font-family: 'BebasNeueBold-7B9LE', Arial, sans-serif; 
+      font-size: 28px; /* Change this to your desired size */
+    }
+
+    .popup-content input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #444;
+      border-radius: 5px;
+      font-family: 'IM Fell Great Primer SC', monospace;
+    }
+
+    .popup-content button {
+      padding: 10px 20px;
+      margin: 5px;
+      background-color: #ff0033;
+      color: black;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: 'IM Fell Great Primer SC', cursive;
+      font-weight: bold;
+    }
+
+    .popup-content button:hover {
       background-color: #aa0011;
     }
   </style>
 </head>
+
 <body>
   <div class="gradient-overlay"></div>
-  
+
   <div class="login-box">
     <h2>WHat IS thE paSSWOrd?</h2>
     <input type="text" id="username" placeholder="Username" />
     <input type="password" id="password" placeholder="Password" />
     <button onclick="login()">Enter</button>
   </div>
-  
-  <script>
 
-    // Colors for the animation
+  <!-- Popup -->
+  <div id="successPopup">
+    <div class="popup-content">
+      <h3>Well Done! Please enter your email for free stuff</h3>
+      <input type="email" id="userEmail" placeholder="Enter your email" />
+      <br />
+      <button onclick="submitEmail()">Submit</button>
+      <button onclick="skipEmail()">Skip</button>
+    </div>
+  </div>
+
+  <script>
     const RED = '220,0,0';
     const BLACK = '0,0,0';
 
-    // State
-    let currentBg = RED;      
-    let overlayColor = BLACK; 
+    let currentBg = RED;
+    let overlayColor = BLACK;
     let radius;
     let maxRadius;
-    let phase = 1; 
+    let phase = 1;
 
     const overlay = document.querySelector('.gradient-overlay');
-    const speed = 20; // Maintain slow speed
+    const speed = 20;
 
     function getMaxRadius() {
       const w = window.innerWidth;
       const h = window.innerHeight;
-      return Math.ceil(Math.sqrt(w * w + h * h)) * 8; // Even larger for a bigger halo
+      return Math.ceil(Math.sqrt(w * w + h * h)) * 8;
     }
 
     function setBackground(color) {
       document.body.style.backgroundColor = `rgb(${color})`;
     }
 
-    // Much wider, softer halo with many stops
     function setOverlayGradient(color, radius) {
       overlay.style.background = `
-        radial-gradient(circle ${radius}px at 50% 50%, 
+        radial-gradient(circle ${radius}px at 50% 50%,
           rgba(${color},1) 0%,
           rgba(${color},0.8) 30%,
           rgba(${color},0.5) 55%,
@@ -177,12 +247,29 @@
     function login() {
       const user = document.getElementById('username').value;
       const pass = document.getElementById('password').value;
+
       if (user === '10songs4u' && pass === 'beecroft') {
-        window.location.href = "home.html";
+        document.getElementById('successPopup').style.display = 'flex';
       } else {
         alert("WRONG. TRY AGAIN.");
       }
     }
+
+    function submitEmail() {
+      const email = document.getElementById('userEmail').value;
+      if (email) {
+        // Later you can send the email to a server or email API
+        alert(`Thank you, ${email}! You will receive free stuff soon!`);
+        window.location.href = "home.html";
+      } else {
+        alert("Please enter your email or click Skip.");
+      }
+    }
+
+    function skipEmail() {
+      window.location.href = "home.html";
+    }
   </script>
 </body>
+
 </html>
