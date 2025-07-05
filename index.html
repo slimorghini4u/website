@@ -261,6 +261,7 @@
 
     function submitEmail() {
       const email = document.getElementById('userEmail').value.trim();
+      console.log("Email entered:", email);
 
       if (!validateEmail(email)) {
         alert("Please enter a valid email address.");
@@ -282,15 +283,18 @@
       const emailParams = {
         user_email: email,
       };
+      console.log("Sending email with params:", emailParams);
 
       emailjs.send(serviceID, templateID, emailParams)
         .then(function(response) {
+          console.log('Email successfully sent!', response.status, response.text);
           alert(`Thank you, ${email}! You will receive free stuff soon!`);
           // Save the email locally to prevent duplicates
           submittedEmails.push(email);
           localStorage.setItem('submittedEmails', JSON.stringify(submittedEmails));
           window.location.href = "home.html";
         }, function(error) {
+          console.error('Email sending failed:', error);
           alert('Failed to send email. Please try again later.');
           console.log('FAILED...', error);
         });
