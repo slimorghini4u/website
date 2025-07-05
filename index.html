@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>10SONGS4U</title>
   <link href="https://fonts.googleapis.com/css2?family=IM+Fell+Great+Primer+SC&display=swap" rel="stylesheet">
+  <script type="text/javascript" src="https://cdn.emailjs.com/sdk/3.2.0/email.min.js"></script>
   <style>
     html,
     body {
@@ -244,6 +245,8 @@
 
     startWipe();
 
+    emailjs.init('ycHGTUmV1Suk2WE9Y'); // Your Public Key
+
     function login() {
       const user = document.getElementById('username').value;
       const pass = document.getElementById('password').value;
@@ -255,15 +258,47 @@
       }
     }
 
+
     function submitEmail() {
-      const email = document.getElementById('userEmail').value;
-      if (email) {
-        // Later you can send the email to a server or email API
-        alert(`Thank you, ${email}! You will receive free stuff soon!`);
-        window.location.href = "home.html";
-      } else {
-        alert("Please enter your email or click Skip.");
+      const email = document.getElementById('userEmail').value.trim();
+
+      if (!validateEmail(email)) {
+        alert("Please enter a valid email address.");
+        return;
       }
+
+      // Check for duplicates using localStorage
+      let submittedEmails = JSON.parse(localStorage.getItem('submittedEmails')) || [];
+
+      if (submittedEmails.includes(email)) {
+        alert("This email has already been entered.");
+        return;
+      }
+
+      // If valid and not duplicate, send email via EmailJS
+      const serviceID = 'service_cjr8r6k';
+      const templateID = 'template_ie9b28l';
+
+      const emailParams = {
+        user_email: email,
+      };
+
+      emailjs.send(serviceID, templateID, emailParams)
+        .then(function(response) {
+          alert(`Thank you, ${email}! You will receive free stuff soon!`);
+          // Save the email locally to prevent duplicates
+          submittedEmails.push(email);
+          localStorage.setItem('submittedEmails', JSON.stringify(submittedEmails));
+          window.location.href = "home.html";
+        }, function(error) {
+          alert('Failed to send email. Please try again later.');
+          console.log('FAILED...', error);
+        });
+    }
+
+    function validateEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(email);
     }
 
     function skipEmail() {
