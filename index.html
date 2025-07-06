@@ -262,42 +262,35 @@
 
     function submitEmail() {
       const email = document.getElementById('userEmail').value.trim();
-      console.log("Email entered:", email);
 
       if (!validateEmail(email)) {
         alert("Please enter a valid email address.");
         return;
       }
 
-      // Check for duplicates using localStorage
-      let submittedEmails = JSON.parse(localStorage.getItem('submittedEmails')) || [];
+      console.log("Email entered: " + email);
 
-      if (submittedEmails.includes(email)) {
-        alert("This email has already been entered.");
-        return;
-      }
+      const scriptURL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?email=' + encodeURIComponent(email);
 
-      // If valid and not duplicate, send email via EmailJS
-      const serviceID = 'service_cjr8r6k';
-      const templateID = 'template_ie9b28l';
+      console.log("Sending GET request to: " + scriptURL);
 
-      const emailParams = {
-        user_email: email,
-      };
-      console.log("Sending email with params:", emailParams);
+      fetch(scriptURL)
+        .then(response => response.text())
+        .then(result => {
+          console.log("Server response: " + result);
 
-      emailjs.send(serviceID, templateID, emailParams)
-        .then(function(response) {
-          console.log('Email successfully sent!', response.status, response.text);
-          alert(`Thank you, ${email}! You will receive free stuff soon!`);
-          // Save the email locally to prevent duplicates
-          submittedEmails.push(email);
-          localStorage.setItem('submittedEmails', JSON.stringify(submittedEmails));
-          window.location.href = "home.html";
-        }, function(error) {
-          console.error('Email sending failed:', error);
-          alert('Failed to send email. Please try again later.');
-          console.log('FAILED...', error);
+          if (result.includes('Email already exists')) {
+            alert('This email has already been entered.');
+          } else if (result.includes('Success')) {
+            alert(`Thank you, ${email}! You will receive free stuff soon!`);
+            window.location.href = "home.html";
+          } else {
+            alert('Unexpected response from server.');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Error submitting email.');
         });
     }
 
