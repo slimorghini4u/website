@@ -6,8 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>10SONGS4U</title>
   <link href="https://fonts.googleapis.com/css2?family=IM+Fell+Great+Primer+SC&display=swap" rel="stylesheet">
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-  
   <style>
     html,
     body {
@@ -20,9 +18,10 @@
       font-family: 'Gothic Punk';
       src: url('fonts/Gothic Punk.ttf') format('truetype');
     }
+
     @font-face {
-    font-family: 'BebasNeueBold-7B9LE';
-    src: url('fonts/BebasNeueBold-7B9LE.ttf') format('truetype');
+      font-family: 'BebasNeueBold-7B9LE';
+      src: url('fonts/BebasNeueBold-7B9LE.ttf') format('truetype');
     }
 
     body {
@@ -123,22 +122,19 @@
     .popup-content h3 {
       color: #ff0033;
       margin-bottom: 15px;
-      font-family: 'BebasNeueBold-7B9LE', Arial, sans-serif; 
-      font-size: 28px; /* Change this to your desired size */
+      font-family: 'BebasNeueBold-7B9LE', Arial, sans-serif;
+      font-size: 28px;
     }
 
-    .popup-content input {
-      width: 90%;
-      padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #444;
-      border-radius: 5px;
-      font-family: 'IM Fell Great Primer SC', monospace;
+    .popup-content iframe {
+      width: 100%;
+      height: 500px;
+      border: none;
     }
 
     .popup-content button {
       padding: 10px 20px;
-      margin: 5px;
+      margin: 10px 5px 0 5px;
       background-color: #ff0033;
       color: black;
       border: none;
@@ -168,9 +164,8 @@
   <div id="successPopup">
     <div class="popup-content">
       <h3>Well Done! Please enter your email for free stuff</h3>
-      <input type="email" id="userEmail" placeholder="Enter your email" />
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScFavrTX4xCet7sV0gXbGaFLWD6dIvz1QAvdDgD-LRrVFTlmQ/viewform?embedded=true" width="640" height="800" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
       <br />
-      <button onclick="submitEmail()">Submit</button>
       <button onclick="skipEmail()">Skip</button>
     </div>
   </div>
@@ -246,8 +241,6 @@
 
     startWipe();
 
-    emailjs.init('ycHGTUmV1Suk2WE9Y'); // Your Public Key
-
     function login() {
       const user = document.getElementById('username').value;
       const pass = document.getElementById('password').value;
@@ -257,46 +250,6 @@
       } else {
         alert("WRONG. TRY AGAIN.");
       }
-    }
-
-
-    function submitEmail() {
-      const email = document.getElementById('userEmail').value.trim();
-
-      if (!validateEmail(email)) {
-        alert("Please enter a valid email address.");
-        return;
-      }
-
-      console.log("Email entered: " + email);
-
-      const scriptURL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?email=' + encodeURIComponent(email);
-
-      console.log("Sending GET request to: " + scriptURL);
-
-      fetch(scriptURL)
-        .then(response => response.text())
-        .then(result => {
-          console.log("Server response: " + result);
-
-          if (result.includes('Email already exists')) {
-            alert('This email has already been entered.');
-          } else if (result.includes('Success')) {
-            alert(`Thank you, ${email}! You will receive free stuff soon!`);
-            window.location.href = "home.html";
-          } else {
-            alert('Unexpected response from server.');
-          }
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          alert('Error submitting email.');
-        });
-    }
-
-    function validateEmail(email) {
-      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      return re.test(email);
     }
 
     function skipEmail() {
