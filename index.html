@@ -137,8 +137,6 @@
     box-shadow: 0 0 15px #ff0033, 0 0 30px #ff0033, 0 0 35px #ff0033; /* Red glow effect */
   }
 
-
-
     footer {
       background: #1a1a1a;
       text-align: center;
@@ -157,6 +155,39 @@ h2 {
   font-size: 1.9em; /* Ensure size increase applies here too */
 }
 
+/* New: clickable 10SONGS4U logo banner below the header. */
+.arg-feature {
+  padding: 62px 16px 26px;
+  text-align: center;
+}
+.arg-feature a {
+  display: block;
+  width: min(1100px, 100%);
+  margin: 0 auto;
+  line-height: 0;
+  border-radius: 8px;
+}
+.arg-feature img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+.arg-feature a:hover img,
+.arg-feature a:focus-visible img {
+  transform: scale(1.025);
+  filter: drop-shadow(0 0 14px rgba(255, 255, 255, 0.40));
+}
+.arg-feature a:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 8px;
+}
+@media (max-width: 600px) {
+  .arg-feature { padding: 38px 12px 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .arg-feature img { transition: none; }
+}
   </style>
 </head>
 <body>
@@ -170,6 +201,13 @@ h2 {
       <a href="#contact">Contact</a>
     </nav>
   </header>
+
+  <!-- Clickable 10SONGS4U ARG banner: links to the existing archive.html -->
+  <div class="arg-feature">
+    <a href="archive.html" aria-label="Enter the 10SONGS4U ARG archive">
+      <img src="assets/10SONGS4U-logo-transparent.png" alt="10SONGS4U" />
+    </a>
+  </div>
 
   <section id="music">
     <h2>Music</h2>
